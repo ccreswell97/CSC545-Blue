@@ -1,6 +1,7 @@
 import gab.opencv.*;
 import processing.video.*;
 import java.awt.*;
+PImage sunglasses;
 
 Capture video;
 OpenCV opencv;
@@ -10,6 +11,9 @@ void setup() {
   video = new Capture(this, 640/2, 480/2);
   opencv = new OpenCV(this, 640/2, 480/2);
   opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
+  sunglasses = loadImage("sunglass.png");
+  //sunglasses.resize(faces[i].width, 0);
+  
 
   video.start();
 }
@@ -29,6 +33,8 @@ void draw() {
   for (int i = 0; i < faces.length; i++) {
     println(faces[i].x + "," + faces[i].y);
     rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+    sunglasses.resize(faces[i].width, 50);
+    image(sunglasses, faces[i].x, faces[i].y+(faces[i].height)/4);
   }
 }
 
