@@ -1,34 +1,37 @@
+import gab.opencv.*;
 import processing.video.*;
+import java.awt.*;
 
-Capture cam;
+Capture video;
+OpenCV opencv;
 
 void setup() {
   size(640, 480);
-  //cam.start();
-  String[] cameras = Capture.list();
-  
-  if (cameras.length == 0) {
-    println("There are no cameras available for capture.");
-    exit();
-  } else {
-    println("Available cameras:");
-    for (int i = 0; i < cameras.length; i++) {
-      println(cameras[i]);
-    }
-    
-    // The camera can be initialized directly using an 
-    // element from the array returned by list():
-    cam = new Capture(this, cameras[0]);
-    cam.start();     
-  }      
+  video = new Capture(this, 640/2, 480/2);
+  opencv = new OpenCV(this, 640/2, 480/2);
+  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
+
+  video.start();
 }
 
 void draw() {
-  if (cam.available() == true) {
-    cam.read();
+  scale(2);
+  opencv.loadImage(video);
+
+  image(video, 0, 0 );
+
+  noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  Rectangle[] faces = opencv.detect();
+  println(faces.length);
+
+  for (int i = 0; i < faces.length; i++) {
+    println(faces[i].x + "," + faces[i].y);
+    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
   }
-  image(cam, 0, 0);
-  // The following does the same, and is faster when just drawing the image
-  // without any additional resizing, transformations, or tint.
-  //set(0, 0, cam);
+}
+
+void captureEvent(Capture c) {
+  c.read();
 }
