@@ -3,20 +3,25 @@ import processing.video.*;
 import java.awt.*;
 
 PImage sunglasses;
+PImage batman;
+PImage currentImg;
+String filter;
 Capture video;
 OpenCV opencv;
 
 final int WINDOW_WIDTH = 640;
 final int WINDOW_HEIGHT = 480;
-String filter = "sunglasses";
+
 
 void setup() {
   size(640, 480);
   video = new Capture(this, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
   opencv = new OpenCV(this, WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
-  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
+  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE); 
+  batman = loadImage("batman.png");
   sunglasses = loadImage("sunglass.png");
   sunglasses = clearColor(sunglasses, color(255, 255, 255));
+  filter = "batman";
   video.start();
 }
 
@@ -42,8 +47,15 @@ void addFilter(Rectangle[] faces, String filter) {
     case "sunglasses":
       for (int i = 0; i < faces.length; i++) {
         println(faces[i].x + "," + faces[i].y);
-        //rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-        image(sunglasses, faces[i].x, faces[i].y + 20, faces[i].width, faces[i].height/2);
+        image(sunglasses, faces[i].x + 3, faces[i].y + 15, faces[i].width, faces[i].height/2);
+      }
+      break;
+      case "batman":
+      for (int i = 0; i < faces.length; i++) {
+        println(faces[i].x + "," + faces[i].y);
+        rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+        
+        image(batman, faces[i].x - 20, faces[i].y - 50, faces[i].width + 50, faces[i].height+50);
       }
       break;
     default:
@@ -58,4 +70,13 @@ PImage clearColor(PImage image, int maskColor) {
         newImage.pixels[n] = image.pixels[n] == maskColor ? 0x00000000 : image.pixels[n] | 0xff000000;
     newImage.updatePixels();
     return newImage;
+}
+void keyPressed(){
+  if(key == 'b'){
+    filter = "batman";
+  }
+  if(key == 's'){
+    filter = "sunglasses";
+  }
+  
 }
