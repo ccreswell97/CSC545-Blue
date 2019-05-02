@@ -53,9 +53,7 @@ void addFilter(Rectangle[] faces, String filter) {
       case "batman":
       for (int i = 0; i < faces.length; i++) {
         println(faces[i].x + "," + faces[i].y);
-        rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-        
-        image(batman, faces[i].x - 20, faces[i].y - 50, faces[i].width + 50, faces[i].height+50);
+        image(batman, faces[i].x - 33, faces[i].y - 80, faces[i].width + 70, faces[i].height+95);
       }
       break;
     default:
