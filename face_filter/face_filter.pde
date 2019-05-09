@@ -11,6 +11,7 @@ OpenCV opencv;
 
 final int WINDOW_WIDTH = 640;
 final int WINDOW_HEIGHT = 480;
+int imageNumber = 0;
 
 
 void setup() {
@@ -60,6 +61,7 @@ void addFilter(Rectangle[] faces, String filter) {
       exit();
   }
 }
+
 PImage clearColor(PImage image, int maskColor) {
     PImage newImage = createImage(image.width, image.height, ARGB);
     image.loadPixels();
@@ -69,12 +71,23 @@ PImage clearColor(PImage image, int maskColor) {
     newImage.updatePixels();
     return newImage;
 }
+
+void takePicture(int imageNumber) {
+  saveFrame("pictures/pic" + imageNumber + ".jpg");
+}
+
 void keyPressed(){
   if(key == 'b'){
     filter = "batman";
   }
+  
   if(key == 's'){
     filter = "sunglasses";
+  }
+  
+  if(key == 'c') {
+    takePicture(imageNumber);
+    imageNumber++;
   }
   
 }
