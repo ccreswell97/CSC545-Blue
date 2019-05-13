@@ -2,8 +2,7 @@ import gab.opencv.*;
 import processing.video.*;
 import java.awt.*;
 
-PImage sunglasses;
-PImage batman;
+PImage sunglasses, batman, clown_nose, clown_hair;
 PImage currentImg;
 String filter;
 Capture video;
@@ -22,14 +21,18 @@ void setup() {
   video = new Capture(this, int(WINDOW_WIDTH/2), int(WINDOW_HEIGHT/2));
   opencv = new OpenCV(this, int(WINDOW_WIDTH/2), int(WINDOW_HEIGHT/2));
   opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE); 
- 
-  filters[0] = loadImage("sunglass.png");
+  sunglasses = loadImage("sunglass.png");
+  batman = loadImage("batman.png");
+  clown_nose = loadImage("clown_nose.png");
+  clown_hair = loadImage("clown_hair.png");
+  
+  filters[0] = loadImage("beach.png");
   filterName[0] = "sunglasses";
-  filters[1] = loadImage("batman.png");
+  filters[1] = loadImage("bat.png");
   filterName[1] = "batman";
+  filters[2] = loadImage("clown.png");
+  filterName[2] = "clown";
   // Replace these when new filters are added
-  filters[2] = loadImage("batman.png");
-  filterName[2] = "batman";
   filters[3] = loadImage("sunglass.png");
   filterName[3] = "sunglasses";
   //sunglasses = clearColor(sunglasses, color(255, 255, 255));
@@ -60,6 +63,7 @@ void draw() {
     imageNumber++;
     takePicture = false;
   }
+  //saveFrame("video/line-######.png");
 }
 
 void captureEvent(Capture c) {
@@ -70,14 +74,22 @@ void addFilter(Rectangle[] faces, String filter) {
   switch(filter) {
     case "sunglasses":
       for (int i = 0; i < faces.length; i++) {
-        //println(faces[i].x + "," + faces[i].y);
-        image(filters[0], faces[i].x + 3, faces[i].y + 15, faces[i].width, faces[i].height/2);
+        image(sunglasses, faces[i].x + 3, faces[i].y + 15, faces[i].width, faces[i].height/2);
       }
       break;
       case "batman":
       for (int i = 0; i < faces.length; i++) {
         //println(faces[i].x + "," + faces[i].y);
-        image(filters[1], faces[i].x - 33, faces[i].y - 80, faces[i].width + 70, faces[i].height+95);
+        image(batman, faces[i].x - 33, faces[i].y - 80, faces[i].width + 70, faces[i].height+95);
+      }
+      break;
+      case "clown":
+      for (int i = 0; i < faces.length; i++) {
+        image(clown_nose, faces[i].x + (faces[i].width/2.0) - ((faces[i].width/3.5)/2), 
+        faces[i].y + (faces[i].height/1.8) - ((faces[i].height/3.5)/2), 
+        faces[i].width/3.5, faces[i].height/3.5);
+        image(clown_hair, faces[i].x - (faces[i].width*0.3), faces[i].y - (faces[i].height * 0.8),
+        faces[i].width*1.6, faces[i].height*1.6);
       }
       break;
     default:
@@ -116,7 +128,7 @@ void takePicture(int imageNumber) {
 void addFilterPreview() {
   for (int i = 0; i < filters.length; i++) {
     if (currentFilter == i) {
-      stroke(191, 210, 239);
+      stroke(255);
       fill(255, 100);
     } else {
       stroke(255);
@@ -126,8 +138,8 @@ void addFilterPreview() {
     if (i >= filters.length/2) {
       spacing = 20;
     }
-    rect(((WINDOW_WIDTH/8.0)*i)+spacing, WINDOW_HEIGHT/2.6, 50, 50, 7);
     image(filters[i], ((WINDOW_WIDTH/8.0)*i)+spacing, WINDOW_HEIGHT/2.6, 50, 50);
+    rect(((WINDOW_WIDTH/8.0)*i)+spacing, WINDOW_HEIGHT/2.6, 50, 50, 7);
   }
   // If user clicks on box, that filter is then used
   if (mousePressed && (mouseY > 370 && mouseY < 470)) {
