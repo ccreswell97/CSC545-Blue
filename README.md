@@ -7,6 +7,9 @@ This project implements face filters on a live video from a webcam and allows th
 * Sunglasses
 * Batman mask
 * Clown
+* Santa Hat
+* Cat
+* Unicorn
 
 **Libraries used**: 
 * Processing video library
