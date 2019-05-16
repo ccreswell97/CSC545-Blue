@@ -84,7 +84,7 @@ void addFilter(Rectangle[] faces, Filter filter) {
     break;
   case "cat":
     for (int i = 0; i < faces.length; i++) {
-      image(filter.subImages.get(0), faces[i].x - (faces[i].width*0.1), faces[i].y - (faces[i].height * 0.5), faces[i].width * 1.2, faces[i].height * 1.2);
+      image(filter.subImages.get(0), faces[i].x - (faces[i].width*0.1), faces[i].y - (faces[i].height * 0.4), faces[i].width * 1.2, faces[i].height * 1.2);
     }
     break;
   case "unicorn":
