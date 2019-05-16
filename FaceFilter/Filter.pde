@@ -44,6 +44,7 @@ class Filter {
 
   public void draw() {
     fill(255);
+    stroke(255);
     rect(pos.x, pos.y, 50, 50, 5);
     image(imagePreview, pos.x, pos.y);
   }

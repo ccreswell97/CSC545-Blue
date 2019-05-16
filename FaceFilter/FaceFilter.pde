@@ -51,13 +51,15 @@ void draw() {
   Rectangle[] faces = opencv.detect();
 
   addFilter(faces, currentFilter);
-  addTakePictureButton();
+  
   addFilterPreview();
   
   if (takePicture) {
     takePicture(imageNumber);
     imageNumber++;
     takePicture = false;
+  } else {
+    addTakePictureButton();
   }
 }
 
