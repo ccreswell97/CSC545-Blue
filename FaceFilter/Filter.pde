@@ -23,20 +23,20 @@ class Filter {
       imagePreview = loadImage("bat.png");
       subImages.add(loadImage("batman.png"));
     } else if (name.equals("sunglass")) {//---------------------------- sunglass
-      imagePreview = loadImage("sunglass.png");
+      imagePreview = loadImage("beach.png");
       subImages.add(loadImage("sunglass.png"));
     } else if (name.equals("clown")) {//---------------------------- clown
       imagePreview = loadImage("clown.png");
       subImages.add(loadImage("clown_hair.png"));
       subImages.add(loadImage("clown_nose.png"));
     } else if (name.equals("cat")) {//---------------------------- cat
-      imagePreview = loadImage("cat.png");
+      imagePreview = loadImage("cat_display.png");
       subImages.add(loadImage("cat.png"));
     } else if (name.equals("unicorn")) {//---------------------------- unicorn
-      imagePreview = loadImage("unicorn.png");
+      imagePreview = loadImage("uni.jpeg");
       subImages.add(loadImage("unicorn.png"));
     } else if (name.equals("santa_hat")) {//---------------------------- santa_hat
-      imagePreview = loadImage("santa_hat.png");
+      imagePreview = loadImage("santa.png");
       subImages.add(loadImage("santa_hat.png"));
     }  
     imagePreview.resize(50, 50);
