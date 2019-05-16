@@ -135,7 +135,3 @@ void keyPressed() {
 void captureEvent(Capture c) {
   c.read();
 }
-
-void mousePressed() {
-  println(mouseX, mouseY);
-}
